@@ -39,7 +39,8 @@ def login():
         )
 
         user = cur.fetchone()
-
+        
+        print("HASIL QUERY:", user)
         print("USERNAME:", request.form["username"])
         print("PASSWORD:", request.form["password"])
         print("HASIL QUERY:", user)
