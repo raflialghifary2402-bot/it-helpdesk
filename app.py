@@ -42,7 +42,7 @@ def login():
 
         print("HASIL QUERY:", user)
         if user:
-            print("ROLE:", user["role"])
+             print("ROLE:", user["role"])
         print("USERNAME:", request.form["username"])
         print("PASSWORD:", request.form["password"])
         print("HASIL QUERY:", user)
