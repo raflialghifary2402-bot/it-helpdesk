@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Buat Complaint - Helpdesk IT</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#7b1e32;
+    --primary-dark:#5c1524;
+}
+
+body{
+    background:#f5f7fb;
+    font-family:'Segoe UI',sans-serif;
+}
+
+.card-form{
+    max-width:1000px;
+    margin:40px auto;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.title{
+    color:var(--primary);
+    font-weight:700;
+}
+
+.form-label{
+    font-weight:600;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+    min-height:48px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 .15rem rgba(123,30,50,.25);
+}
+
+.btn-main{
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:12px 25px;
+    font-weight:600;
+}
+
+.btn-main:hover{
+    background:var(--primary-dark);
+    color:white;
+}
+
+.close-page{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+    background:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    color:var(--primary);
+
+    font-size:22px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+    transition:.3s;
+
+    z-index:999;
+}
+
+.close-page:hover{
+    background:var(--primary);
+    color:white;
+    transform:rotate(90deg);
+}
+
+.preview-box{
+    display:none;
+    margin-top:15px;
+}
+
+.preview-box img{
+    max-height:250px;
+    border-radius:12px;
+    border:1px solid #ddd;
+}
+
+.card-header-custom{
+    border-bottom:1px solid #eee;
+    padding-bottom:15px;
+    margin-bottom:25px;
+}
+
+@media(max-width:768px){
+
+    .card-form{
+        margin:20px;
+        padding:25px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<a href="/dashboard" class="close-page">
+    <i class="fa-solid fa-xmark"></i>
+</a>
+
+<div class="container">
+
+    <div class="card-form">
+
+        <div class="card-header-custom">
+
+            <h2 class="title mb-2">
+                <i class="fa-solid fa-circle-plus me-2"></i>
+                Buat Complaint Baru
+            </h2>
+
+            <p class="text-muted mb-0">
+                Silakan isi data keluhan IT dengan lengkap agar dapat segera diproses.
+            </p>
+
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+{% if session.get('role') == 'outlet' %}
+
+<label>Outlet</label>
+<select name="perusahaan" required>
+    <option value="">Pilih Outlet</option>
+
+    <option>Growell Pondok Indah</option>
+    <option>Growell Gunawarman</option>
+    <option>Winestop Kelapa Gading</option>
+    <option>Winestop Gunawarman</option>
+    <option>Winestop Pondok Indah</option>
+    <option>Winestop Tanjung Duren</option>
+    <option>Core n Court Pondok Indah</option>
+    <option>Kluckee Pondok Indah</option>
+    <option>Pillates Pondok Indah</option>
+
+</select>
+
+{% else %}
+
+<label>Perusahaan</label>
+<select name="perusahaan" required>
+    <option value="">Pilih Perusahaan</option>
+    <option>NAI</option>
+    <option>DSP</option>
+</select>
+
+{% endif %}
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+                        Nama Karyawan
+                    </label>
+
+                    <input
+                    type="text"
+                    name="nama"
+                    class="form-control"
+                    placeholder="Masukkan nama karyawan"
+                    required>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+                        Departemen
+                    </label>
+
+                    <select
+                    name="departemen"
+                    class="form-select"
+                    required>
+
+                        <option value="">
+                            Pilih Departemen
+                        </option>
+
+                        <option>Accounting</option>
+                        <option>Finance</option>
+                        <option>HRD</option>
+                        <option>Purchasing</option>
+                        <option>Marketing</option>
+                        <option>Produksi</option>
+                        <option>Warehouse</option>
+                        <option>Lainnya</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Kategori Kerusakan
+                </label>
+
+                <select
+                name="kategori"
+                class="form-select"
+                required>
+
+                    <option value="">
+                        Pilih Kategori
+                    </option>
+
+                    <option>Laptop</option>
+                    <option>Komputer</option>
+                    <option>Printer</option>
+                    <option>Microsoft Office</option>
+                    <option>Email</option>
+                    <option>Internet / WiFi</option>
+                    <option>Jaringan</option>
+                    <option>Scanner</option>
+                    <option>Lainnya</option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Detail Masalah
+                </label>
+
+                <textarea
+                name="detail"
+                rows="6"
+                class="form-control"
+                placeholder="Jelaskan masalah yang sedang dialami secara detail..."
+                required></textarea>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Upload Foto Kerusakan
+                </label>
+
+                <input
+                type="file"
+                id="foto"
+                name="foto"
+                class="form-control"
+                accept=".jpg,.jpeg,.png,.webp">
+
+                <small class="text-muted">
+                    Format yang diperbolehkan: JPG, JPEG, PNG, WEBP
+                </small>
+
+                <div class="preview-box" id="previewBox">
+
+                    <img id="previewImage">
+
+                </div>
+
+            </div>
+
+            <div class="text-end mt-4">
+
+                <button
+                type="submit"
+                class="btn btn-main">
+
+                    <i class="fa-solid fa-paper-plane me-2"></i>
+                    Kirim Complaint
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+document
+.getElementById("foto")
+.addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(file){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            document.getElementById("previewImage").src = e.target.result;
+            document.getElementById("previewBox").style.display = "block";
+
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+});
+
+</script>
+
+</body>
+</html>
