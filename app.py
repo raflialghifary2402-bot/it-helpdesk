@@ -40,12 +40,12 @@ def login():
 
         user = cur.fetchone()
 
-        print("HASIL QUERY:", user)
-        if user:
-             print("ROLE:", user["role"])
         print("USERNAME:", request.form["username"])
         print("PASSWORD:", request.form["password"])
         print("HASIL QUERY:", user)
+
+        if user:
+            print("ROLE:", user["role"])
 
         conn.close()
 
@@ -163,19 +163,14 @@ def api_notifikasi(user_id):
 
     return jsonify(notif)
 
-@app.route("/complain", methods=["GET", "POST"])
-def complain():
 
-    if "user_id" not in session:
-        return redirect("/")
-
-    if request.method == "POST":
-        # simpan ticket
-
-    return render_template("complain.html")
 
 @app.route("/dashboard")
 def dashboard():
+     
+    print("SESSION:", dict(session))
+
+
     print("SESSION USER ID =", session.get("user_id"))
     print("SESSION ROLE =", session.get("role"))
 
