@@ -57,7 +57,7 @@ def login():
                 return redirect("/admin")
 
             elif user["role"] == "outlet":
-                return redirect("/dashboard")
+             return "OUTLET LOGIN BERHASIL"
 
             elif user["role"] == "user":
                 return redirect("/dashboard")
