@@ -165,7 +165,9 @@ def api_notifikasi(user_id):
 
 @app.route("/dashboard")
 def dashboard():
-
+    print("SESSION USER ID =", session.get("user_id"))
+    print("SESSION ROLE =", session.get("role"))
+    
     if session.get("role") not in ["user", "outlet"]:
         return redirect("/")
 
